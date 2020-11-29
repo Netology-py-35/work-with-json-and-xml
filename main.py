@@ -25,10 +25,10 @@ def get_json_bag_of_words(json_file):
     return bag_of_words
 
 
-def word_count(words):
+def word_count(words, min_lenth:int):
     counts = {}
     for word in words:
-        if len(word) > 6:
+        if len(word) > min_lenth:
             if word in counts:
                 counts[word] += 1
             else:
@@ -36,10 +36,10 @@ def word_count(words):
     return counts
 
 
-def print_top_words(words):
-    s = sorted(word_count(words).items(), key=lambda item: item[1])
+def print_top_words(words, top_index:int, min_lenth:int):
+    s = sorted(word_count(words, min_lenth).items(), key=lambda item: item[1])
     s.reverse()
-    for word in s[:10]:
+    for word in s[:top_index]:
         print(f'слово "{word[0]}" встречается {word[1]} раз')
 
 
@@ -51,5 +51,5 @@ if __name__ == '__main__':
 
     for w in words.items():
         print(f'ТОП 10 слов в файле {w[0]}')
-        print_top_words(w[1])
+        print_top_words(w[1], 10, 6)
         print()
